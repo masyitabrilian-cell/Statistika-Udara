@@ -1,0 +1,1443 @@
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AirStat Indonesia ✦</title>
+
+<style>
+:root {
+    --bg: #f7f6ff;
+    --white: #ffffff;
+    --lavender: #c9b8f5;
+    --purple: #8065c7;
+    --blue: #bce7f7;
+    --blue-dark: #4d9fc4;
+    --yellow: #fff0b8;
+    --pink: #f8cce0;
+    --green: #bcebd5;
+    --text: #45405f;
+    --muted: #89849f;
+    --border: #e8e1f7;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+
+body {
+    margin: 0;
+    font-family: "Trebuchet MS", Arial, sans-serif;
+    color: var(--text);
+    background:
+        radial-gradient(circle at 5% 15%, #e4f6ff 0, transparent 25%),
+        radial-gradient(circle at 95% 45%, #fbe4f0 0, transparent 24%),
+        var(--bg);
+    overflow-x: hidden;
+}
+
+button, input, select { font: inherit; }
+button { cursor: pointer; }
+
+button:focus-visible, input:focus-visible, select:focus-visible {
+    outline: 3px solid #aa96e8;
+    outline-offset: 3px;
+}
+
+@keyframes float {
+    0%,100% { transform: translateY(0) rotate(-5deg); }
+    50% { transform: translateY(-17px) rotate(7deg); }
+}
+
+@keyframes bob {
+    0%,100% { transform: translateY(0); }
+    50% { transform: translateY(-7px); }
+}
+
+@keyframes appear {
+    from { opacity: 0; transform: translateY(12px) scale(.98); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@keyframes shine {
+    0% { background-position: 0% 50%; }
+    100% { background-position: 200% 50%; }
+}
+
+.decor {
+    position: fixed;
+    z-index: -1;
+    pointer-events: none;
+    animation: float 5s ease-in-out infinite;
+    opacity: .7;
+}
+
+.d1 { left: 2%; top: 25%; font-size: 28px; }
+.d2 { right: 3%; top: 55%; font-size: 32px; animation-delay: 1s; }
+.d3 { left: 7%; bottom: 8%; font-size: 23px; animation-delay: 2s; }
+
+header {
+    padding: 36px 18px 30px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(120deg, #d9f0ff, #e8ddff, #fff0c8, #e8ddff);
+    background-size: 200% 200%;
+    animation: shine 15s linear infinite;
+    border-bottom: 2px solid #e0d6fa;
+}
+
+header h1 {
+    margin: 0;
+    font-size: clamp(30px, 5vw, 46px);
+    color: #6f59ae;
+    letter-spacing: -.8px;
+}
+
+header h1 span { color: #4d9fc4; }
+
+.mascot {
+    display: inline-block;
+    font-size: 43px;
+    margin-top: 10px;
+    animation: bob 2.5s infinite;
+}
+
+header p { color: #71688f; margin: 12px 0 0; }
+
+.pill {
+    display: inline-block;
+    padding: 9px 16px;
+    margin-top: 15px;
+    background: #ffffffc9;
+    border: 1px solid #d7c9f6;
+    border-radius: 30px;
+    color: #8065c7;
+    font-size: 13px;
+    font-weight: bold;
+}
+
+main {
+    width: min(1150px, 100%);
+    margin: auto;
+    padding: 22px;
+}
+
+.panel {
+    background: #ffffffeb;
+    border: 1px solid var(--border);
+    border-radius: 24px;
+    padding: 23px;
+    margin-bottom: 20px;
+    box-shadow: 0 8px 25px #8d80b30c;
+    animation: appear .5s ease both;
+    transition: box-shadow .25s, border-color .25s, transform .25s;
+}
+
+.panel:hover {
+    border-color: #cfc0f2;
+    box-shadow: 0 12px 30px #8d80b318;
+}
+
+.panel h2 {
+    margin: 0 0 18px;
+    color: #7160ad;
+    font-size: 21px;
+}
+
+.emoji {
+    display: inline-flex;
+    width: 38px;
+    height: 38px;
+    align-items: center;
+    justify-content: center;
+    background: #eee8ff;
+    border-radius: 13px;
+    margin-right: 7px;
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 15px;
+}
+
+label {
+    display: block;
+    font-size: 13px;
+    font-weight: bold;
+    margin-bottom: 8px;
+    color: #71688f;
+}
+
+input, select {
+    width: 100%;
+    padding: 13px;
+    border: 1.5px solid #ded6f3;
+    border-radius: 13px;
+    background: #fbfaff;
+    color: var(--text);
+    transition: .2s;
+}
+
+input:focus, select:focus {
+    outline: none;
+    border-color: #9c8bdf;
+    box-shadow: 0 0 0 4px #eee9ff;
+}
+
+.buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 17px;
+}
+
+.btn {
+    border: 0;
+    border-radius: 14px;
+    padding: 13px 17px;
+    font-weight: bold;
+    transition: transform .2s, box-shadow .2s, filter .2s;
+}
+
+.btn:hover { transform: translateY(-3px); filter: brightness(1.03); }
+.btn:active { transform: scale(.97); }
+
+.btn-main {
+    color: white;
+    background: linear-gradient(135deg, #9b85df, #7862c2);
+    box-shadow: 0 4px 0 #6450a5;
+}
+
+.btn-blue {
+    color: #315f78;
+    background: linear-gradient(135deg, #d8f3ff, #b9e7f8);
+    box-shadow: 0 4px 0 #9bd1e8;
+}
+
+.btn-yellow {
+    color: #77602c;
+    background: linear-gradient(135deg, #fff4c9, #ffe7a0);
+    box-shadow: 0 4px 0 #ead48b;
+}
+
+.btn-pink {
+    color: #895171;
+    background: linear-gradient(135deg, #ffe1ed, #f7c4dc);
+    box-shadow: 0 4px 0 #e5a9c5;
+}
+
+.full { width: 100%; }
+
+.hint {
+    color: var(--muted);
+    font-size: 13px;
+    line-height: 1.7;
+}
+
+.stats {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 13px;
+}
+
+.stat {
+    min-width: 0;
+    padding: 17px;
+    border-radius: 19px;
+    border: 1px solid #d9e8fb;
+    background: linear-gradient(145deg, #f0f9ff, #e7f2ff);
+    transition: transform .25s, box-shadow .25s;
+}
+
+.stat:nth-child(2) {
+    background: linear-gradient(145deg, #f5efff, #eae2ff);
+    border-color: #ded2fa;
+}
+
+.stat:nth-child(3) {
+    background: linear-gradient(145deg, #fff7dc, #fff0bd);
+    border-color: #f2e1a4;
+}
+
+.stat:nth-child(4) {
+    background: linear-gradient(145deg, #fff0f7, #ffe2ed);
+    border-color: #f3d0e1;
+}
+
+.stat:hover {
+    transform: translateY(-5px) rotate(-1deg);
+    box-shadow: 0 8px 20px #9d8bc91c;
+}
+
+.stat p {
+    font-size: 12px;
+    color: #817a9b;
+    margin: 0 0 10px;
+}
+
+.stat h3 {
+    margin: 0;
+    font-size: clamp(19px, 2.6vw, 27px);
+    color: #6553a7;
+    overflow-wrap: anywhere;
+}
+
+.unit {
+    display: block;
+    font-size: 11px;
+    margin-top: 5px;
+    color: var(--muted);
+}
+
+.status {
+    margin-top: 17px;
+    border: 1px solid #d8d1f4;
+    border-radius: 17px;
+    padding: 16px;
+    background: #f3efff;
+    line-height: 1.7;
+    animation: appear .4s ease;
+}
+
+.status.good { background: #e9f9f0; border-color: #b9e7cc; }
+.status.moderate { background: #fff7db; border-color: #f0df9c; }
+.status.bad { background: #ffedf4; border-color: #f0b8d0; }
+
+.meter {
+    height: 14px;
+    border-radius: 20px;
+    margin-top: 14px;
+    overflow: hidden;
+    background: linear-gradient(90deg, #a8e5c2, #ffe69a, #ffb3cf);
+}
+
+.meter-fill {
+    height: 100%;
+    width: 0%;
+    border-radius: inherit;
+    background: #7862c2;
+    transition: width .8s ease;
+}
+
+.control-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.slider {
+    width: 100%;
+    accent-color: #8d79d1;
+    cursor: pointer;
+}
+
+.slider-value {
+    color: #7862c2;
+    font-weight: bold;
+}
+
+.areas {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 11px;
+}
+
+.area {
+    padding: 15px 7px;
+    text-align: center;
+    border-radius: 16px;
+    color: #386b54;
+    background: linear-gradient(145deg, #e2f8ed, #c7efdb);
+    border: 1px solid #b7e4cc;
+    animation: appear .35s ease both;
+    transition: transform .2s, box-shadow .2s;
+    overflow-wrap: anywhere;
+}
+
+.area:hover {
+    transform: translateY(-5px) scale(1.035);
+    box-shadow: 0 7px 16px #9fcdbb55;
+}
+
+.area strong {
+    display: block;
+    font-size: 18px;
+    margin-top: 6px;
+}
+
+.area.orange {
+    background: linear-gradient(145deg, #fff5d6, #ffe4a6);
+    border-color: #eed68d;
+    color: #80632a;
+}
+
+.area.red {
+    background: linear-gradient(145deg, #ffe4ef, #f9bdd7);
+    border-color: #e9a6c4;
+    color: #984f76;
+}
+
+.legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 13px;
+    font-size: 12px;
+    color: #817a9b;
+    margin-top: 14px;
+}
+
+.dot {
+    display: inline-block;
+    width: 11px;
+    height: 11px;
+    border-radius: 50%;
+    margin-right: 5px;
+}
+
+.chart-wrap {
+    background: linear-gradient(145deg, #f7faff, #fff5fa);
+    border: 1px solid #e8e1f7;
+    border-radius: 18px;
+    padding: 8px;
+    position: relative;
+}
+
+canvas {
+    display: block;
+    width: 100%;
+    height: 300px;
+    cursor: crosshair;
+    touch-action: pan-y;
+}
+
+.chart-tip {
+    margin-top: 10px;
+    min-height: 40px;
+    padding: 11px 14px;
+    border-radius: 12px;
+    background: #f0edff;
+    color: #7160ad;
+    font-size: 13px;
+}
+
+.particles {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    overflow: hidden;
+    border-radius: inherit;
+}
+
+.particle {
+    position: absolute;
+    bottom: -15px;
+    font-size: 14px;
+    opacity: .6;
+    animation: rise 5s linear infinite;
+}
+
+@keyframes rise {
+    from { transform: translateY(0) rotate(0); opacity: 0; }
+    15% { opacity: .7; }
+    to { transform: translateY(-340px) rotate(180deg); opacity: 0; }
+}
+
+.love-note {
+    margin-top: 17px;
+    padding: 15px;
+    text-align: center;
+    border: 1px dashed #d6c8f4;
+    background: #f5f0ff;
+    border-radius: 15px;
+    color: #7966b3;
+}
+
+footer {
+    text-align: center;
+    padding: 25px 15px;
+    color: #6e6791;
+    background: linear-gradient(120deg, #e3f5ff, #eee5ff, #fff1c8);
+}
+
+footer span { display: inline-block; animation: bob 2s infinite; }
+
+@media (max-width: 750px) {
+    main { padding: 12px; }
+    .form-grid { grid-template-columns: 1fr; }
+    .stats { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .areas { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .panel { padding: 16px; border-radius: 20px; }
+    canvas { height: 250px; }
+    .buttons { flex-direction: column; }
+    .buttons .btn { width: 100%; }
+}
+
+@media (max-width: 380px) {
+    .stats { grid-template-columns: 1fr; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+        scroll-behavior: auto !important;
+        transition-duration: .01ms !important;
+    }
+}
+</style>
+</head>
+
+<body>
+<div class="decor d1">✦</div>
+<div class="decor d2">☁️</div>
+<div class="decor d3">✿</div>
+
+<header>
+    <h1>☁️ AirStat <span>Indonesia</span> ✦</h1>
+    <p>Kenali udara, sayangi bumi, mulai dari kita! 🌎</p>
+    <div class="pill">✧ Statistik udara dengan sentuhan pastel ✧</div>
+    <div class="mascot">🪻 🐻‍❄️ 🩵</div>
+</header>
+
+<main>
+<section class="panel">
+    <h2><span class="emoji">📍</span>Lokasi & Pengukuran</h2>
+
+    <div class="form-grid">
+        <div>
+            <label for="provinsi">Pilih Provinsi</label>
+            <select id="provinsi" onchange="ubahProvinsi()">
+                <option value="">-- Pilih provinsi --</option>
+            </select>
+        </div>
+
+        <div>
+            <label for="kota">Pilih Kota / Wilayah</label>
+            <select id="kota">
+                <option value="">-- Pilih kota --</option>
+            </select>
+        </div>
+
+        <div>
+            <label for="pm25">☁️ Kadar PM2.5 (µg/m³)</label>
+            <input id="pm25" type="number" min="0" max="1000"
+                   step="0.1" placeholder="Contoh: 42.5">
+        </div>
+    </div>
+
+    <div class="buttons">
+        <button class="btn btn-main" onclick="analisis()">✦ Analisis Udara</button>
+        <button class="btn btn-blue" onclick="isiContoh()">☁ Isi Contoh</button>
+        <button class="btn btn-yellow" onclick="acakPengukuran()">🎲 Acak Simulasi</button>
+        <button class="btn btn-pink" onclick="resetAplikasi()">↻ Reset</button>
+        <button class="btn btn-blue" onclick="buatLaporanPDF()">📄 Unduh Laporan PDF</button>
+    </div>
+
+    <p class="hint">Masukkan PM2.5 dari hasil pengukuran. Tombol acak hanya menghasilkan data contoh, bukan data udara nyata.</p>
+</section>
+
+<section class="panel">
+    <h2><span class="emoji">🪄</span>Dashboard Udara</h2>
+    <p>Lokasi terpilih: <strong id="lokasiHasil">Belum dipilih</strong></p>
+
+    <div class="stats">
+        <div class="stat">
+            <p>☁️ PM2.5</p>
+            <h3 id="hasilPM">--</h3>
+            <span class="unit">µg/m³</span>
+        </div>
+
+        <div class="stat">
+            <p>🌤️ Kategori ilustratif</p>
+            <h3 id="hasilKategori">--</h3>
+        </div>
+
+        <div class="stat">
+            <p>🌸 Area merah muda</p>
+            <h3 id="hasilMerah">--</h3>
+        </div>
+
+        <div class="stat">
+            <p>🫧 Rata-rata simulasi</p>
+            <h3 id="hasilRata">--</h3>
+            <span class="unit">µg/m³</span>
+        </div>
+    </div>
+
+    <div id="status" class="status">
+        Halo! Pilih lokasi dan masukkan nilai PM2.5 untuk memulai. ✨
+    </div>
+
+    <p class="hint">Indikator relatif terhadap rentang ilustrasi 0–150 µg/m³.</p>
+    <div class="meter"><div class="meter-fill" id="meterFill"></div></div>
+</section>
+
+<section class="panel">
+    <h2><span class="emoji">🎛️</span>Atur Simulasi</h2>
+
+    <div class="control-row">
+        <label for="intensitas">Variasi nilai antararea</label>
+        <span class="slider-value" id="intensitasLabel">25%</span>
+    </div>
+
+    <input class="slider" id="intensitas" type="range"
+           min="0" max="60" value="25" oninput="ubahIntensitas()">
+
+    <p class="hint">Geser untuk mengatur seberapa besar perbedaan nilai di 16 area. Perubahan ini hanya memengaruhi simulasi, bukan nilai pengukuran asli.</p>
+
+    <button class="btn btn-blue full" onclick="perbaruiSimulasi()">🔄 Terapkan Pengaturan</button>
+</section>
+
+<section class="panel">
+    <h2><span class="emoji">🗺️</span>Simulasi 16 Area</h2>
+    <p class="hint">Sentuh atau arahkan kursor ke kotak untuk melihat detail nilai simulasi.</p>
+
+    <div class="areas" id="areas">
+        <div class="area">Area 1<strong>--</strong></div>
+        <div class="area">Area 2<strong>--</strong></div>
+        <div class="area">Area 3<strong>--</strong></div>
+        <div class="area">Area 4<strong>--</strong></div>
+        <div class="area">Area 5<strong>--</strong></div>
+        <div class="area">Area 6<strong>--</strong></div>
+        <div class="area">Area 7<strong>--</strong></div>
+        <div class="area">Area 8<strong>--</strong></div>
+        <div class="area">Area 9<strong>--</strong></div>
+        <div class="area">Area 10<strong>--</strong></div>
+        <div class="area">Area 11<strong>--</strong></div>
+        <div class="area">Area 12<strong>--</strong></div>
+        <div class="area">Area 13<strong>--</strong></div>
+        <div class="area">Area 14<strong>--</strong></div>
+        <div class="area">Area 15<strong>--</strong></div>
+        <div class="area">Area 16<strong>--</strong></div>
+    </div>
+
+    <div class="legend">
+        <span><i class="dot" style="background:#bcebd5"></i>Rendah</span>
+        <span><i class="dot" style="background:#ffe4a6"></i>Sedang</span>
+        <span><i class="dot" style="background:#f9bdd7"></i>Tinggi</span>
+    </div>
+</section>
+
+<section class="panel">
+    <h2><span class="emoji">📈</span>Kurva Distribusi Normal</h2>
+    <p class="hint">Arahkan kursor atau sentuh grafik untuk melihat nilai pada titik tersebut.</p>
+
+    <div class="chart-wrap">
+        <canvas id="grafik" aria-label="Grafik distribusi normal nilai PM2.5 simulasi"></canvas>
+    </div>
+
+    <div class="chart-tip" id="chartTip">Grafik akan muncul setelah analisis dilakukan.</div>
+
+    <div class="legend">
+        <span><i class="dot" style="background:#8d79d1"></i>Kurva distribusi</span>
+        <span><i class="dot" style="background:#a8e5c2"></i>Di bawah ambang ilustrasi</span>
+        <span><i class="dot" style="background:#f4a8c8"></i>Di atas ambang ilustrasi</span>
+    </div>
+</section>
+
+<section class="panel">
+    <h2><span class="emoji">🧸</span>Ringkasan Statistik</h2>
+
+    <div class="stats">
+        <div class="stat">
+            <p>🍃 Nilai terendah</p>
+            <h3 id="hasilMin">--</h3>
+            <span class="unit">µg/m³</span>
+        </div>
+
+        <div class="stat">
+            <p>☁️ Nilai tertinggi</p>
+            <h3 id="hasilMax">--</h3>
+            <span class="unit">µg/m³</span>
+        </div>
+
+        <div class="stat">
+            <p>🗺️ Jumlah area</p>
+            <h3>16</h3>
+        </div>
+
+        <div class="stat">
+            <p>💙 Area bukan pink</p>
+            <h3 id="hasilAman">--</h3>
+        </div>
+    </div>
+
+    <div class="love-note">✦ Langkah kecil untuk bumi yang lebih baik ✦ 🌎</div>
+
+    <p class="hint">Ini merupakan simulasi edukasi, bukan data sensor langsung atau peta geografis nyata. Ambang 15 dan 35 µg/m³ digunakan sebagai batas ilustratif aplikasi, bukan kategori resmi kualitas udara.</p>
+</section>
+</main>
+
+<footer>
+    <span>🪻</span> AirStat Indonesia · Udara bersih, masa depan cerah <span>☁️</span>
+</footer>
+
+<script>
+const wilayah = {
+"Aceh":["Banda Aceh","Sabang","Langsa","Lhokseumawe","Subulussalam"],
+"Sumatera Utara":["Medan","Binjai","Pematangsiantar","Tebing Tinggi","Padangsidimpuan","Sibolga","Tanjungbalai","Gunungsitoli"],
+"Sumatera Barat":["Padang","Bukittinggi","Payakumbuh","Pariaman","Sawahlunto","Solok","Padang Panjang"],
+"Riau":["Pekanbaru","Dumai"],
+"Jambi":["Jambi","Sungai Penuh"],
+"Sumatera Selatan":["Palembang","Prabumulih","Lubuklinggau","Pagar Alam"],
+"Bengkulu":["Bengkulu"],
+"Lampung":["Bandar Lampung","Metro"],
+"Kepulauan Bangka Belitung":["Pangkalpinang"],
+"Kepulauan Riau":["Tanjungpinang","Batam"],
+"Daerah Khusus Jakarta":["Jakarta Pusat","Jakarta Utara","Jakarta Barat","Jakarta Selatan","Jakarta Timur"],
+"Jawa Barat":["Bandung","Bekasi","Bogor","Depok","Cimahi","Cirebon","Sukabumi","Tasikmalaya","Banjar"],
+"Jawa Tengah":["Semarang","Surakarta","Magelang","Salatiga","Pekalongan","Tegal"],
+"Daerah Istimewa Yogyakarta":["Yogyakarta"],
+"Jawa Timur":["Surabaya","Malang","Batu","Kediri","Blitar","Madiun","Mojokerto","Pasuruan","Probolinggo"],
+"Banten":["Serang","Tangerang","Cilegon","Tangerang Selatan"],
+"Bali":["Denpasar"],
+"Nusa Tenggara Barat":["Mataram","Bima"],
+"Nusa Tenggara Timur":["Kupang"],
+"Kalimantan Barat":["Pontianak","Singkawang"],
+"Kalimantan Tengah":["Palangka Raya"],
+"Kalimantan Selatan":["Banjarmasin","Banjarbaru"],
+"Kalimantan Timur":["Samarinda","Balikpapan","Bontang"],
+"Kalimantan Utara":["Tarakan"],
+"Sulawesi Utara":["Manado","Bitung","Tomohon","Kotamobagu"],
+"Sulawesi Tengah":["Palu"],
+"Sulawesi Selatan":["Makassar","Parepare","Palopo"],
+"Sulawesi Tenggara":["Kendari","Baubau"],
+"Gorontalo":["Gorontalo"],
+"Sulawesi Barat":["Mamuju"],
+"Maluku":["Ambon","Tual"],
+"Maluku Utara":["Ternate","Tidore Kepulauan"],
+"Papua Barat":["Manokwari"],
+"Papua Barat Daya":["Sorong"],
+"Papua":["Jayapura"],
+"Papua Selatan":["Merauke"],
+"Papua Tengah":["Nabire"],
+"Papua Pegunungan":["Wamena"]
+};
+
+const AMBANG = 35;
+const provinsi = document.getElementById("provinsi");
+const kota = document.getElementById("kota");
+const pmInput = document.getElementById("pm25");
+const canvas = document.getElementById("grafik");
+const ctx = canvas.getContext("2d");
+
+let values = [];
+let currentPM = null;
+let chartMax = 100;
+let lastPointerX = null;
+
+Object.keys(wilayah).forEach(nama => {
+    const opt = document.createElement("option");
+    opt.value = nama;
+    opt.textContent = nama;
+    provinsi.appendChild(opt);
+});
+
+function ubahProvinsi() {
+    kota.innerHTML = '<option value="">-- Pilih kota --</option>';
+
+    (wilayah[provinsi.value] || []).forEach(nama => {
+        const opt = document.createElement("option");
+        opt.value = nama;
+        opt.textContent = nama;
+        kota.appendChild(opt);
+    });
+}
+
+function kategori(n) {
+    if (n <= 15) return "Rendah 🌱";
+    if (n <= AMBANG) return "Sedang 🌤️";
+    return "Tinggi 🌸";
+}
+
+function analisis() {
+    if (!provinsi.value || !kota.value || pmInput.value.trim() === "") {
+        alert("Pilih provinsi, kota, dan masukkan nilai PM2.5 terlebih dahulu ya! 🪻");
+        return;
+    }
+
+    const pm = Number(pmInput.value);
+
+    if (!Number.isFinite(pm) || pm < 0 || pm > 1000) {
+        alert("Masukkan PM2.5 dari 0 hingga 1000 µg/m³.");
+        return;
+    }
+
+    currentPM = pm;
+
+    document.getElementById("lokasiHasil").textContent =
+        kota.value + ", " + provinsi.value;
+
+    document.getElementById("hasilPM").textContent = pm.toFixed(1);
+    document.getElementById("hasilKategori").textContent = kategori(pm);
+
+    buatSimulasi();
+    tampilArea();
+    statistik();
+    gambarKurva();
+
+    document.getElementById("status").scrollIntoView({
+        behavior: "smooth",
+        block: "nearest"
+    });
+}
+
+function buatSimulasi() {
+    if (currentPM === null) return;
+
+    const variasi = Number(document.getElementById("intensitas").value) / 100;
+    values = [];
+
+    for (let i = 0; i < 16; i++) {
+        const pola =
+            Math.sin((i + 1) * 2.4) * 0.65 +
+            Math.cos((i + 1) * 1.3) * 0.35;
+
+        const nilai = Math.max(
+            0,
+            currentPM + pola * Math.max(2, currentPM * variasi)
+        );
+
+        values.push(Number(nilai.toFixed(1)));
+    }
+}
+
+function tampilArea() {
+    const container = document.getElementById("areas");
+    container.innerHTML = "";
+
+    values.forEach((n, i) => {
+        const el = document.createElement("div");
+        const warna = n > AMBANG ? "red" : n > 15 ? "orange" : "";
+
+        el.className = "area " + warna;
+        el.style.animationDelay = (i * 0.035) + "s";
+        el.innerHTML = "Area " + (i + 1) + "<strong>" + n.toFixed(1) + "</strong>";
+        el.title = "Nilai simulasi PM2.5: " + n.toFixed(1) + " µg/m³";
+        el.setAttribute("tabindex", "0");
+        el.setAttribute("role", "button");
+        el.setAttribute("aria-label", "Area " + (i + 1) + ", PM2.5 simulasi " + n);
+
+        el.addEventListener("click", () => {
+            document.getElementById("chartTip").textContent =
+                "🗺️ Area " + (i + 1) + ": " + n.toFixed(1) +
+                " µg/m³ · Kategori simulasi: " + kategori(n);
+        });
+
+        container.appendChild(el);
+    });
+}
+
+function statistik() {
+    const rata = values.reduce((a, b) => a + b, 0) / values.length;
+    const min = Math.min(...values);
+    const max = Math.max(...values);
+    const merah = values.filter(n => n > AMBANG).length;
+
+    document.getElementById("hasilRata").textContent = rata.toFixed(1);
+    document.getElementById("hasilMin").textContent = min.toFixed(1);
+    document.getElementById("hasilMax").textContent = max.toFixed(1);
+    document.getElementById("hasilMerah").textContent = merah + " / 16";
+    document.getElementById("hasilAman").textContent = (16 - merah) + " / 16";
+
+    const status = document.getElementById("status");
+    status.className = "status";
+
+    if (currentPM > AMBANG) {
+        status.classList.add("bad");
+        status.textContent =
+            "🌸 Kategori simulasi tinggi. Nilai PM2.5 melewati ambang ilustrasi 35 µg/m³. Perhatikan informasi kualitas udara setempat.";
+    } else if (currentPM > 15) {
+        status.classList.add("moderate");
+        status.textContent =
+            "🌤️ Kategori simulasi sedang berdasarkan batas ilustrasi aplikasi. Pantau kualitas udara setempat.";
+    } else {
+        status.classList.add("good");
+        status.textContent =
+            "🌱 Kategori simulasi rendah berdasarkan batas ilustrasi aplikasi.";
+    }
+
+    document.getElementById("meterFill").style.width =
+        Math.min(currentPM / 150 * 100, 100) + "%";
+}
+
+function ubahIntensitas() {
+    document.getElementById("intensitasLabel").textContent =
+        document.getElementById("intensitas").value + "%";
+}
+
+function perbaruiSimulasi() {
+    if (currentPM === null) {
+        alert("Lakukan analisis terlebih dahulu ya! 🪻");
+        return;
+    }
+
+    buatSimulasi();
+    tampilArea();
+    statistik();
+    gambarKurva();
+}
+
+function isiContoh() {
+    provinsi.value = "Jawa Timur";
+    ubahProvinsi();
+    kota.value = "Surabaya";
+    pmInput.value = "42.5";
+    analisis();
+}
+
+function acakPengukuran() {
+    provinsi.value = "Jawa Barat";
+    ubahProvinsi();
+    kota.value = "Bandung";
+    pmInput.value = (Math.random() * 80 + 5).toFixed(1);
+    analisis();
+}
+
+function resetAplikasi() {
+    currentPM = null;
+    values = [];
+    provinsi.value = "";
+    kota.innerHTML = '<option value="">-- Pilih kota --</option>';
+    pmInput.value = "";
+    document.getElementById("intensitas").value = 25;
+    ubahIntensitas();
+
+    [
+        "hasilPM", "hasilKategori", "hasilMerah", "hasilRata",
+        "hasilMin", "hasilMax", "hasilAman"
+    ].forEach(id => {
+        document.getElementById(id).textContent = "--";
+    });
+
+    document.getElementById("lokasiHasil").textContent = "Belum dipilih";
+    document.getElementById("status").className = "status";
+    document.getElementById("status").textContent =
+        "Halo! Pilih lokasi dan masukkan nilai PM2.5 untuk memulai. ✨";
+
+    document.getElementById("meterFill").style.width = "0%";
+    document.getElementById("areas").innerHTML = "";
+
+    for (let i = 1; i <= 16; i++) {
+        const el = document.createElement("div");
+        el.className = "area";
+        el.innerHTML = "Area " + i + "<strong>--</strong>";
+        document.getElementById("areas").appendChild(el);
+    }
+
+    document.getElementById("chartTip").textContent =
+        "Grafik akan muncul setelah analisis dilakukan.";
+
+    lastPointerX = null;
+    gambarKurva();
+}
+
+function persiapkanCanvas() {
+    const rect = canvas.getBoundingClientRect();
+    const dpr = window.devicePixelRatio || 1;
+
+    canvas.width = Math.max(1, Math.round(rect.width * dpr));
+    canvas.height = Math.max(1, Math.round(rect.height * dpr));
+
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+    return { w: rect.width, h: rect.height };
+}
+
+function kurva(x) {
+    if (!values.length) return 0;
+
+    const mean = values.reduce((a, b) => a + b, 0) / values.length;
+    const variance = values.reduce(
+        (s, v) => s + (v - mean) ** 2, 0
+    ) / values.length;
+
+    const sd = Math.max(Math.sqrt(variance), 1);
+
+    return Math.exp(-0.5 * ((x - mean) / sd) ** 2);
+}
+
+function gambarKurva() {
+    const { w, h } = persiapkanCanvas();
+    ctx.clearRect(0, 0, w, h);
+
+    const left = 42, right = 15, top = 20, bottom = 35;
+    const pw = w - left - right;
+    const ph = h - top - bottom;
+
+    if (!values.length) {
+        ctx.fillStyle = "#89849f";
+        ctx.font = "14px Arial";
+        ctx.fillText("Masukkan nilai PM2.5 untuk melihat kurva ✦", 12, 35);
+        return;
+    }
+
+    chartMax = Math.max(
+        60,
+        Math.ceil((Math.max(...values) + 10) / 10) * 10
+    );
+
+    const xp = x => left + x / chartMax * pw;
+    let peak = 0;
+
+    for (let i = 0; i <= 300; i++) {
+        peak = Math.max(peak, kurva(i * chartMax / 300));
+    }
+
+    const yp = x => top + ph - kurva(x) / peak * ph;
+    const threshold = Math.min(AMBANG, chartMax);
+
+    ctx.strokeStyle = "#e9e4f7";
+    ctx.lineWidth = 1;
+
+    for (let i = 0; i <= 4; i++) {
+        const y = top + ph * i / 4;
+        ctx.beginPath();
+        ctx.moveTo(left, y);
+        ctx.lineTo(w - right, y);
+        ctx.stroke();
+    }
+
+    function fillArea(from, to, color) {
+        ctx.beginPath();
+        ctx.moveTo(xp(from), top + ph);
+
+        for (let i = 0; i <= 300; i++) {
+            const x = i * chartMax / 300;
+            if (x >= from && x <= to) ctx.lineTo(xp(x), yp(x));
+        }
+
+        ctx.lineTo(xp(to), top + ph);
+        ctx.closePath();
+        ctx.fillStyle = color;
+        ctx.fill();
+    }
+
+    fillArea(0, threshold, "rgba(142, 207, 179, .42)");
+    fillArea(threshold, chartMax, "rgba(244, 168, 200, .55)");
+
+    ctx.beginPath();
+
+    for (let i = 0; i <= 300; i++) {
+        const x = i * chartMax / 300;
+        if (i === 0) ctx.moveTo(xp(x), yp(x));
+        else ctx.lineTo(xp(x), yp(x));
+    }
+
+    ctx.strokeStyle = "#8d79d1";
+    ctx.lineWidth = 3;
+    ctx.stroke();
+
+    ctx.setLineDash([5, 5]);
+    ctx.beginPath();
+    ctx.moveTo(xp(threshold), top);
+    ctx.lineTo(xp(threshold), top + ph);
+    ctx.strokeStyle = "#e18ab0";
+    ctx.lineWidth = 2;
+    ctx.stroke();
+    ctx.setLineDash([]);
+
+    ctx.fillStyle = "#817a9b";
+    ctx.font = "11px Arial";
+    ctx.textAlign = "center";
+
+    for (let i = 0; i <= 4; i++) {
+        const x = chartMax * i / 4;
+        ctx.fillText(x.toFixed(0), xp(x), h - 12);
+    }
+
+    ctx.textAlign = "left";
+    ctx.fillText("PM2.5 (µg/m³)", left, h - 1);
+    ctx.fillStyle = "#b66d96";
+    ctx.fillText("Ambang 35", Math.min(xp(threshold) + 5, w - 78), top + 12);
+
+    if (lastPointerX !== null) drawPointer(lastPointerX, false);
+}
+
+function drawPointer(clientX, updateTip = true) {
+    if (!values.length) return;
+
+    const rect = canvas.getBoundingClientRect();
+    const left = 42, right = 15, top = 20, bottom = 35;
+    const pw = rect.width - left - right;
+    const ph = rect.height - top - bottom;
+    const px = Math.max(left, Math.min(rect.width - right, clientX));
+    const value = (px - left) / pw * chartMax;
+
+    let peak = 0;
+
+    for (let i = 0; i <= 300; i++) {
+        peak = Math.max(peak, kurva(i * chartMax / 300));
+    }
+
+    const py = top + ph - kurva(value) / peak * ph;
+
+    gambarKurvaBaseOnly();
+
+    ctx.beginPath();
+    ctx.setLineDash([4, 4]);
+    ctx.moveTo(px, top);
+    ctx.lineTo(px, top + ph);
+    ctx.strokeStyle = "#7862c2";
+    ctx.stroke();
+    ctx.setLineDash([]);
+
+    ctx.beginPath();
+    ctx.arc(px, py, 5, 0, Math.PI * 2);
+    ctx.fillStyle = "#7862c2";
+    ctx.fill();
+    ctx.strokeStyle = "#fff";
+    ctx.lineWidth = 2;
+    ctx.stroke();
+
+    if (updateTip) {
+        document.getElementById("chartTip").textContent =
+            "📍 Posisi grafik: " + Math.max(0, value).toFixed(1) +
+            " µg/m³ · Nilai kurva relatif: " +
+            (kurva(value) / peak).toFixed(2);
+    }
+}
+
+function gambarKurvaBaseOnly() {
+    const { w, h } = persiapkanCanvas();
+    ctx.clearRect(0, 0, w, h);
+
+    const left = 42, right = 15, top = 20, bottom = 35;
+    const pw = w - left - right;
+    const ph = h - top - bottom;
+    const xp = x => left + x / chartMax * pw;
+
+    let peak = 0;
+
+    for (let i = 0; i <= 300; i++) {
+        peak = Math.max(peak, kurva(i * chartMax / 300));
+    }
+
+    const yp = x => top + ph - kurva(x) / peak * ph;
+    const t = Math.min(AMBANG, chartMax);
+
+    ctx.strokeStyle = "#e9e4f7";
+
+    for (let i = 0; i <= 4; i++) {
+        const y = top + ph * i / 4;
+        ctx.beginPath();
+        ctx.moveTo(left, y);
+        ctx.lineTo(w - right, y);
+        ctx.stroke();
+    }
+
+    function fill(a, b, color) {
+        ctx.beginPath();
+        ctx.moveTo(xp(a), top + ph);
+
+        for (let i = 0; i <= 300; i++) {
+            const x = i * chartMax / 300;
+            if (x >= a && x <= b) ctx.lineTo(xp(x), yp(x));
+        }
+
+        ctx.lineTo(xp(b), top + ph);
+        ctx.closePath();
+        ctx.fillStyle = color;
+        ctx.fill();
+    }
+
+    fill(0, t, "rgba(142,207,179,.42)");
+    fill(t, chartMax, "rgba(244,168,200,.55)");
+
+    ctx.beginPath();
+
+    for (let i = 0; i <= 300; i++) {
+        const x = i * chartMax / 300;
+        if (!i) ctx.moveTo(xp(x), yp(x));
+        else ctx.lineTo(xp(x), yp(x));
+    }
+
+    ctx.strokeStyle = "#8d79d1";
+    ctx.lineWidth = 3;
+    ctx.stroke();
+
+    ctx.setLineDash([5, 5]);
+    ctx.beginPath();
+    ctx.moveTo(xp(t), top);
+    ctx.lineTo(xp(t), top + ph);
+    ctx.strokeStyle = "#e18ab0";
+    ctx.stroke();
+    ctx.setLineDash([]);
+
+    ctx.fillStyle = "#817a9b";
+    ctx.font = "11px Arial";
+    ctx.textAlign = "center";
+
+    for (let i = 0; i <= 4; i++) {
+        const x = chartMax * i / 4;
+        ctx.fillText(x.toFixed(0), xp(x), h - 12);
+    }
+
+    ctx.textAlign = "left";
+    ctx.fillText("PM2.5 (µg/m³)", left, h - 1);
+    ctx.fillStyle = "#b66d96";
+    ctx.fillText("Ambang 35", Math.min(xp(t) + 5, w - 78), top + 12);
+}
+
+canvas.addEventListener("pointermove", event => {
+    if (!values.length) return;
+
+    const rect = canvas.getBoundingClientRect();
+    lastPointerX = event.clientX - rect.left;
+    drawPointer(lastPointerX);
+});
+
+canvas.addEventListener("pointerleave", () => {
+    lastPointerX = null;
+    gambarKurva();
+});
+
+canvas.addEventListener("click", event => {
+    if (!values.length) return;
+
+    const rect = canvas.getBoundingClientRect();
+    lastPointerX = event.clientX - rect.left;
+    drawPointer(lastPointerX);
+});
+
+/* Fitur untuk membuat laporan dan menyimpan sebagai PDF */
+function buatLaporanPDF() {
+    if (
+        currentPM === null ||
+        !provinsi.value ||
+        !kota.value ||
+        values.length === 0
+    ) {
+        alert("Pilih lokasi, masukkan PM2.5, lalu klik Analisis Udara terlebih dahulu ya! 🪻");
+        return;
+    }
+
+    const tanggal = new Date().toLocaleDateString("id-ID", {
+        day: "2-digit",
+        month: "long",
+        year: "numeric"
+    });
+
+    const rata = values.reduce((a, b) => a + b, 0) / values.length;
+    const minimum = Math.min(...values);
+    const maksimum = Math.max(...values);
+    const tinggi = values.filter(n => n > AMBANG).length;
+
+    const areaRows = values.map((nilai, index) => `
+        <tr>
+            <td>Area ${index + 1}</td>
+            <td>${nilai.toFixed(1)} µg/m³</td>
+            <td>${kategori(nilai)}</td>
+        </tr>
+    `).join("");
+
+    const laporan = window.open("", "_blank");
+
+    if (!laporan) {
+        alert("Pop-up diblokir. Izinkan pop-up pada browser lalu coba lagi.");
+        return;
+    }
+
+    laporan.document.write(`<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Laporan AirStat Indonesia</title>
+
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        color: #45405f;
+        margin: 28px;
+        line-height: 1.6;
+    }
+
+    header {
+        text-align: center;
+        padding: 22px;
+        background: #e9f5fb;
+        border: 2px solid #c9b8f5;
+        border-radius: 14px;
+    }
+
+    h1 { color: #6f59ae; margin-bottom: 5px; }
+
+    h2 {
+        color: #7160ad;
+        margin-top: 25px;
+        border-bottom: 1px solid #ded6f3;
+        padding-bottom: 6px;
+    }
+
+    .grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+        margin: 18px 0;
+    }
+
+    .card {
+        padding: 14px;
+        border: 1px solid #ded6f3;
+        border-radius: 12px;
+        background: #f7f6ff;
+    }
+
+    .card strong {
+        display: block;
+        color: #4d9fc4;
+        font-size: 20px;
+        margin-top: 5px;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 12px;
+    }
+
+    th, td {
+        border: 1px solid #ded6f3;
+        padding: 9px;
+        text-align: left;
+    }
+
+    th { background: #e8ddff; }
+    tr:nth-child(even) { background: #f7f6ff; }
+
+    .note {
+        padding: 13px;
+        background: #fff4c9;
+        border-radius: 10px;
+    }
+
+    .print {
+        display: block;
+        margin: 25px auto;
+        padding: 12px 20px;
+        color: white;
+        background: #8065c7;
+        border: 0;
+        border-radius: 10px;
+        font-size: 15px;
+        cursor: pointer;
+    }
+
+    footer {
+        margin-top: 28px;
+        text-align: center;
+        color: #89849f;
+    }
+
+    @media print {
+        .print { display: none; }
+        body { margin: 12mm; }
+
+        th, .card, .note, header {
+            print-color-adjust: exact;
+            -webkit-print-color-adjust: exact;
+        }
+    }
+</style>
+</head>
+
+<body>
+<header>
+    <h1>☁ AirStat Indonesia ✦</h1>
+    <p>Laporan Statistik Kualitas Udara PM2.5</p>
+    <p>Tanggal laporan: ${tanggal}</p>
+</header>
+
+<h2>1. Informasi Pengukuran</h2>
+
+<p>
+    <b>Provinsi:</b> ${provinsi.value}<br>
+    <b>Kota / wilayah:</b> ${kota.value}<br>
+    <b>Nilai PM2.5:</b> ${currentPM.toFixed(1)} µg/m³<br>
+    <b>Kategori ilustratif:</b> ${kategori(currentPM)}
+</p>
+
+<h2>2. Statistik Simulasi</h2>
+
+<div class="grid">
+    <div class="card">
+        Rata-rata PM2.5
+        <strong>${rata.toFixed(1)} µg/m³</strong>
+    </div>
+
+    <div class="card">
+        Nilai terendah
+        <strong>${minimum.toFixed(1)} µg/m³</strong>
+    </div>
+
+    <div class="card">
+        Nilai tertinggi
+        <strong>${maksimum.toFixed(1)} µg/m³</strong>
+    </div>
+
+    <div class="card">
+        Area di atas ambang ilustrasi 35
+        <strong>${tinggi} dari ${values.length} area</strong>
+    </div>
+</div>
+
+<h2>3. Rincian Area Simulasi</h2>
+
+<table>
+    <thead>
+        <tr>
+            <th>Area</th>
+            <th>Nilai PM2.5</th>
+            <th>Kategori ilustratif</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        ${areaRows}
+    </tbody>
+</table>
+
+<h2>4. Kesimpulan</h2>
+
+<p>
+    Nilai PM2.5 yang dimasukkan untuk ${kota.value},
+    ${provinsi.value}, adalah ${currentPM.toFixed(1)} µg/m³.
+    Berdasarkan batas ilustratif aplikasi, nilai tersebut termasuk
+    kategori ${kategori(currentPM)}. Statistik area merupakan
+    simulasi berdasarkan nilai input, bukan pengukuran masing-masing area.
+</p>
+
+<h2>5. Catatan Data</h2>
+
+<div class="note">
+    Laporan ini dibuat dari input pengguna dan data simulasi aplikasi.
+    Angka ini bukan pengukuran langsung dari sensor maupun data kualitas
+    udara terkini. Batas 15 dan 35 µg/m³ merupakan batas ilustratif
+    aplikasi, bukan kategori resmi kualitas udara.
+</div>
+
+<footer>
+    AirStat Indonesia — Udara bersih, masa depan cerah 🌎
+</footer>
+
+<button class="print" onclick="window.print()">
+    Cetak / Simpan sebagai PDF
+</button>
+
+</body>
+</html>`);
+
+    laporan.document.close();
+}
+
+window.addEventListener("resize", gambarKurva);
+
+gambarKurva();
+</script>
+</body>
+</html>
